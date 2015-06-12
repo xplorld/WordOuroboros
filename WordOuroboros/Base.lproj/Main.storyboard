@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <scenes>
+        <!--选择词库-->
+        <scene sceneID="xrN-N0-eDg">
+            <objects>
+                <viewController storyboardIdentifier="dictSelectionController" title="选择词库" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3s2-Yw-G4e" customClass="DictSelectionViewController" customModule="WordOuroboros" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6yu-VP-3Oa"/>
+                        <viewControllerLayoutGuide type="bottom" id="ec6-vX-lV9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="evf-LP-DU0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Fb0-9K-EkP">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DictCell" textLabel="cIn-Vm-5Q7" detailTextLabel="Upx-ce-pAo" style="IBUITableViewCellStyleSubtitle" id="BB4-ph-wvF">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BB4-ph-wvF" id="AE9-XZ-XOs">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cIn-Vm-5Q7">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Upx-ce-pAo">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Fb0-9K-EkP" firstAttribute="top" secondItem="evf-LP-DU0" secondAttribute="top" id="5IH-ye-Zv4"/>
+                            <constraint firstItem="Fb0-9K-EkP" firstAttribute="leading" secondItem="evf-LP-DU0" secondAttribute="leading" id="M4m-Fl-GGO"/>
+                            <constraint firstItem="Fb0-9K-EkP" firstAttribute="bottom" secondItem="ec6-vX-lV9" secondAttribute="top" id="ruS-TM-9eV"/>
+                            <constraint firstAttribute="trailing" secondItem="Fb0-9K-EkP" secondAttribute="trailing" id="tfJ-zR-03H"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="选择词库" id="SeG-q5-BTl">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="qTl-Fn-lpO">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="3s2-Yw-G4e" id="t61-E2-PPg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="tableView" destination="Fb0-9K-EkP" id="uOx-0U-pxP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ool-IJ-bEj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="679.5" y="404.5"/>
+        </scene>
+        <!--Word View-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController title="Word View" id="vXZ-lx-hvc" customClass="WordViewController" customModule="WordOuroboros" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="56z-L2-dsR" customClass="SlidableView" customModule="WordOuroboros" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aeS-aS-cHm" customClass="ToolBarView" customModule="WordOuroboros" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="uB6-fy-EBs"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="56z-L2-dsR" firstAttribute="trailing" secondItem="aeS-aS-cHm" secondAttribute="trailing" id="D3L-Oe-qMX"/>
+                            <constraint firstItem="56z-L2-dsR" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="WLs-3b-oxo"/>
+                            <constraint firstItem="56z-L2-dsR" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="ccp-rJ-4lE"/>
+                            <constraint firstItem="aeS-aS-cHm" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" symbolic="YES" id="qRR-k9-Ea7"/>
+                            <constraint firstItem="56z-L2-dsR" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="quI-qO-lWF"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="aeS-aS-cHm" secondAttribute="bottom" constant="589" id="srw-lT-sFE"/>
+                            <constraint firstAttribute="trailing" secondItem="56z-L2-dsR" secondAttribute="trailing" id="vY2-TV-EkK"/>
+                            <constraint firstItem="aeS-aS-cHm" firstAttribute="leading" secondItem="56z-L2-dsR" secondAttribute="leading" id="xAs-ZC-jgG"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="srw-lT-sFE"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="slidableView" destination="56z-L2-dsR" id="4Ex-v0-3rI"/>
+                        <outlet property="toolBarView" destination="aeS-aS-cHm" id="XJ0-cW-Rqp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="145.5" y="388.5"/>
+        </scene>
+    </scenes>
+</document>
