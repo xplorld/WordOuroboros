@@ -12,12 +12,17 @@ import UIKit
 typealias WordType = String
 typealias CharacterType = WordType.Generator.Element
 
+/**
+array of WordCorpus like
+
+WordCorpus(
+name:"TOEFL 词汇",
+path:"toefl.json",
+sample:"Gothic")
+*/
 let Corpora:[WordCorpus] = (JSONObjectFromFile("corpusList.json") as! [[String:String]])
-        .map{WordCorpus(name:$0["name"]!,path:$0["path"]!,sample:$0["sample"]!)}
-/*[
-    WordCorpus(name:"TOEFL 词汇",path:"toefl.json",sample:"Gothic"),
-    WordCorpus(name:"成语",path:"chengyu.json",sample:"偃苗助长")
-]*/
+    .map{WordCorpus(name:$0["name"]!,path:$0["path"]!,sample:$0["sample"]!)}
+
 
 /**a corpus.
 
@@ -56,7 +61,7 @@ class WordCorpusData {
     ///[Character:[String]]
     var headMap:[CharacterType:[WordType]] = [:]
     var tailMap:[CharacterType:[WordType]] = [:]
-    func setWords(words:[WordType]) {
+    private func setWords(words:[WordType]) {
         for word in words {
             if let head = first(word) {
                 if headMap[head] == nil {
@@ -73,6 +78,9 @@ class WordCorpusData {
             }
         }
     }
+    
+    //TODO: change history from list to graph (like git?)
+    var wordHistory:[WordType] = []
 }
 
 //word providing methods
@@ -82,24 +90,43 @@ extension WordCorpusData {
         if old == "" {
             return nil
         }
-        if find(usedWords, old) == nil {
-            usedWords.append(old)
-        }
-        
         let (oldPicker,newPicker) = charPosition(relation)
-        if let oldChar = oldPicker(old) {
-            return newPicker(oldChar).filter {!contains(self.usedWords, $0)}.first
+        if let
+            oldChar = oldPicker(old),
+            new = (newPicker(oldChar).filter{!contains(self.usedWords, $0)}.first) {
+                usedWords.append(new)
+                return new
         }
         return nil
     }
     func wordBeforeWord(old:WordType) -> WordType? {
-        return wordOfRelationshipToWord(old, relation: .Before)
+        if let theWord = wordOfRelationshipToWord(old, relation: .Before) {
+            let index = find(wordHistory, old)!
+            //"ab" with ["eg","gb","bc","cf"] becomes ["ab","bc","cf"]
+            wordHistory.removeRange(0..<index)
+            wordHistory.insert(theWord, atIndex: 0)
+            
+            return theWord
+        }
+        return nil
     }
     func wordNextToWord(old:WordType) -> WordType? {
-        return wordOfRelationshipToWord(old, relation: .After)
+        if let theWord = wordOfRelationshipToWord(old, relation: .After) {
+            let index = find(wordHistory, old)!
+            wordHistory.removeRange((index+1)..<wordHistory.endIndex)
+            wordHistory.append(theWord)
+            return theWord
+        }
+        return nil
     }
     func wordBesidesWord(old:WordType) -> WordType? {
-        return wordOfRelationshipToWord(old, relation: .Besides)
+        if let theWord = wordOfRelationshipToWord(old, relation: .Besides) {
+            let index = find(wordHistory, old)!
+            wordHistory.removeRange(index..<wordHistory.endIndex)
+            wordHistory.append(theWord)
+            return theWord
+        }
+        return nil
     }
     func randomWord() -> WordType? {
         if headMap.isEmpty {
@@ -109,8 +136,12 @@ extension WordCorpusData {
         let key = Array(headMap.keys)[i]
         let strs = headMap[key]!
         let j = Int(arc4random_uniform(UInt32(strs.count)))
-        return strs[j]
+        let word = strs[j]
+        wordHistory = [word]
+        usedWords.append(word)
+        return word
     }
+    
     
     private func charPosition(relationship:WordRelationship) -> (old:(WordType)->CharacterType?,new:(CharacterType)->[WordType]) {
         var lastSelector:(CharacterType)->[WordType] = {self.tailMap[$0] ?? []}

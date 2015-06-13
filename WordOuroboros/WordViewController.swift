@@ -36,7 +36,8 @@ class WordViewController: UIViewController {
     func prepareToolBarView() {
         let buttonInfo = [
             ("books","dictSelectionDidTap"),
-            ("refresh","refreshDidTap")
+            ("refresh","refreshDidTap"),
+            ("history","historyDidTap")
         ]
         
         for (name,action) in buttonInfo {
@@ -69,6 +70,12 @@ class WordViewController: UIViewController {
         view.backgroundColor = WOColor.getColor()
         view.text = corpusData.randomWord() ?? ""
         slidableView.setCurrentView(view)
+    }
+    func historyDidTap() {
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("WordHistoryTableViewController") as! WordHistoryTableViewController
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        presentViewController(nav, animated: true, completion: nil)
     }
     
 }
@@ -113,9 +120,17 @@ extension WordViewController : DictSelectionViewControllerDelegate {
     }
 }
 
-
-
-
+extension WordViewController : WordHistoryTableViewControllerDelegate {
+    var wordHistory: [WordType] {
+        return corpusData.wordHistory
+    }
+    func didSelectWord(word: WordType) {
+        let view = slidableView.dequeueView() as! WordView
+        view.text = word
+        view.backgroundColor = WOColor.getColor()
+        slidableView.setCurrentView(view)
+    }
+}
 
 
 

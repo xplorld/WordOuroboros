@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DictCell" textLabel="cIn-Vm-5Q7" detailTextLabel="Upx-ce-pAo" style="IBUITableViewCellStyleSubtitle" id="BB4-ph-wvF">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CorpusCell" textLabel="cIn-Vm-5Q7" detailTextLabel="Upx-ce-pAo" style="IBUITableViewCellStyleSubtitle" id="BB4-ph-wvF">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BB4-ph-wvF" id="AE9-XZ-XOs">
@@ -60,6 +60,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="Fb0-9K-EkP" id="uOx-0U-pxP"/>
@@ -68,6 +69,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ool-IJ-bEj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="679.5" y="404.5"/>
+        </scene>
+        <!--接龙历史-->
+        <scene sceneID="w5T-hV-ac5">
+            <objects>
+                <viewController storyboardIdentifier="WordHistoryTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tXl-7X-Rzh" customClass="WordHistoryTableViewController" customModule="WordOuroboros" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1J7-s6-IQe"/>
+                        <viewControllerLayoutGuide type="bottom" id="odw-RB-nd8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="z2N-WZ-JaS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ARt-7W-Xk8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexTrackingBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WordCell" id="Aul-2z-ivQ" customClass="WordHistoryCellTableViewCell" customModule="WordOuroboros" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aul-2z-ivQ" id="udC-ca-laU">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUU-gm-MdC">
+                                                    <rect key="frame" x="166" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WUU-gm-MdC" firstAttribute="centerX" secondItem="udC-ca-laU" secondAttribute="centerX" id="FG6-st-wr9"/>
+                                                <constraint firstItem="WUU-gm-MdC" firstAttribute="centerY" secondItem="udC-ca-laU" secondAttribute="centerY" id="KI2-ij-SCL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="wordLabel" destination="WUU-gm-MdC" id="Fz6-Oh-F9J"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ARt-7W-Xk8" firstAttribute="bottom" secondItem="odw-RB-nd8" secondAttribute="top" id="Hc7-Yf-DcF"/>
+                            <constraint firstItem="ARt-7W-Xk8" firstAttribute="top" secondItem="z2N-WZ-JaS" secondAttribute="top" id="K92-Zq-zLZ"/>
+                            <constraint firstAttribute="trailing" secondItem="ARt-7W-Xk8" secondAttribute="trailing" id="Q8j-rK-OhB"/>
+                            <constraint firstItem="ARt-7W-Xk8" firstAttribute="leading" secondItem="z2N-WZ-JaS" secondAttribute="leading" id="r9Q-dA-10Y"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="接龙历史" id="I3e-qs-02R">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="xsu-NC-fMi">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="tXl-7X-Rzh" id="6iK-P1-xV1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="0vR-jz-cto">
+                            <connections>
+                                <action selector="actionButtonTapped:" destination="tXl-7X-Rzh" id="EFj-oB-kdW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="tableView" destination="ARt-7W-Xk8" id="3Lm-Ok-4oN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z4n-UE-Ypd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1095.5" y="404.5"/>
         </scene>
         <!--Word View-->
         <scene sceneID="ufC-wZ-h7g">

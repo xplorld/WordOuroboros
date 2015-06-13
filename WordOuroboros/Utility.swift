@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 Xplorld. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 func JSONObjectFromFile(path:String) -> AnyObject? {
     let name = path.stringByDeletingPathExtension
@@ -17,4 +17,8 @@ func JSONObjectFromFile(path:String) -> AnyObject? {
             return NSJSONSerialization.JSONObjectWithData(data,options: .AllowFragments, error: nil)
     }
     return nil
+}
+
+func showDevelopingAlert(moduleName:String) {
+    UIAlertView(title: "报警啦！", message: "\(moduleName)功能开发中", delegate: nil, cancelButtonTitle: "okay...").show()
 }

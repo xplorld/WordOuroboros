@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A079F831B2C324800E6763A /* WordHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A079F821B2C324800E6763A /* WordHistoryTableViewController.swift */; };
+		1A079F851B2C372E00E6763A /* WordHistoryCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A079F841B2C372E00E6763A /* WordHistoryCellTableViewCell.swift */; };
 		1A0AB0121B2C170400355992 /* corpusList.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AB0111B2C170400355992 /* corpusList.json */; };
 		1A0AB0141B2C180D00355992 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AB0131B2C180D00355992 /* Utility.swift */; };
 		1A3EFAC51B27FBB8008DC38E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAC41B27FBB8008DC38E /* AppDelegate.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A079F821B2C324800E6763A /* WordHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordHistoryTableViewController.swift; sourceTree = "<group>"; };
+		1A079F841B2C372E00E6763A /* WordHistoryCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordHistoryCellTableViewCell.swift; sourceTree = "<group>"; };
 		1A0AB0111B2C170400355992 /* corpusList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = corpusList.json; sourceTree = "<group>"; };
 		1A0AB0131B2C180D00355992 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		1A3EFABF1B27FBB8008DC38E /* WordOuroboros.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordOuroboros.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,7 +107,9 @@
 				1A3EFAC41B27FBB8008DC38E /* AppDelegate.swift */,
 				1A3EFAC61B27FBB8008DC38E /* WordViewController.swift */,
 				1A3EFAC81B27FBB8008DC38E /* Main.storyboard */,
+				1A079F841B2C372E00E6763A /* WordHistoryCellTableViewCell.swift */,
 				1A3EFAF91B298669008DC38E /* DictSelectionViewController.swift */,
+				1A079F821B2C324800E6763A /* WordHistoryTableViewController.swift */,
 				1A3EFACB1B27FBB8008DC38E /* Images.xcassets */,
 				1A3EFAC21B27FBB8008DC38E /* Supporting Files */,
 			);
@@ -273,7 +279,9 @@
 				1A3EFAE71B27FC52008DC38E /* WOColor.swift in Sources */,
 				1A0AB0141B2C180D00355992 /* Utility.swift in Sources */,
 				1A3EFAFC1B298C91008DC38E /* ToolBarView.swift in Sources */,
+				1A079F831B2C324800E6763A /* WordHistoryTableViewController.swift in Sources */,
 				1A3EFAC51B27FBB8008DC38E /* AppDelegate.swift in Sources */,
+				1A079F851B2C372E00E6763A /* WordHistoryCellTableViewCell.swift in Sources */,
 				1A3EFAFA1B298669008DC38E /* DictSelectionViewController.swift in Sources */,
 				1A3EFAE51B27FC1B008DC38E /* WordView.swift in Sources */,
 				1A3EFAE91B27FD10008DC38E /* SlidableView.swift in Sources */,
