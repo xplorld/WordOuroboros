@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A0AB0121B2C170400355992 /* corpusList.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A0AB0111B2C170400355992 /* corpusList.json */; };
+		1A0AB0141B2C180D00355992 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0AB0131B2C180D00355992 /* Utility.swift */; };
 		1A3EFAC51B27FBB8008DC38E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAC41B27FBB8008DC38E /* AppDelegate.swift */; };
 		1A3EFAC71B27FBB8008DC38E /* WordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAC61B27FBB8008DC38E /* WordViewController.swift */; };
 		1A3EFACA1B27FBB8008DC38E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A3EFAC81B27FBB8008DC38E /* Main.storyboard */; };
@@ -16,7 +18,7 @@
 		1A3EFAE71B27FC52008DC38E /* WOColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAE61B27FC52008DC38E /* WOColor.swift */; };
 		1A3EFAE91B27FD10008DC38E /* SlidableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAE81B27FD10008DC38E /* SlidableView.swift */; };
 		1A3EFAED1B285503008DC38E /* toefl.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A3EFAEC1B285503008DC38E /* toefl.json */; };
-		1A3EFAF11B288BB6008DC38E /* WordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAF01B288BB6008DC38E /* WordData.swift */; };
+		1A3EFAF11B288BB6008DC38E /* WordCorpus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAF01B288BB6008DC38E /* WordCorpus.swift */; };
 		1A3EFAFA1B298669008DC38E /* DictSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAF91B298669008DC38E /* DictSelectionViewController.swift */; };
 		1A3EFAFC1B298C91008DC38E /* ToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAFB1B298C91008DC38E /* ToolBarView.swift */; };
 		1AB043331B2AAF4800AFF5C7 /* WordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AB043321B2AAF4800AFF5C7 /* WordView.xib */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A0AB0111B2C170400355992 /* corpusList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = corpusList.json; sourceTree = "<group>"; };
+		1A0AB0131B2C180D00355992 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		1A3EFABF1B27FBB8008DC38E /* WordOuroboros.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordOuroboros.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A3EFAC31B27FBB8008DC38E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A3EFAC41B27FBB8008DC38E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +51,7 @@
 		1A3EFAE61B27FC52008DC38E /* WOColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WOColor.swift; sourceTree = "<group>"; };
 		1A3EFAE81B27FD10008DC38E /* SlidableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidableView.swift; sourceTree = "<group>"; };
 		1A3EFAEC1B285503008DC38E /* toefl.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = toefl.json; sourceTree = "<group>"; };
-		1A3EFAF01B288BB6008DC38E /* WordData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordData.swift; sourceTree = "<group>"; };
+		1A3EFAF01B288BB6008DC38E /* WordCorpus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCorpus.swift; sourceTree = "<group>"; };
 		1A3EFAF91B298669008DC38E /* DictSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictSelectionViewController.swift; sourceTree = "<group>"; };
 		1A3EFAFB1B298C91008DC38E /* ToolBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarView.swift; sourceTree = "<group>"; };
 		1AB043321B2AAF4800AFF5C7 /* WordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WordView.xib; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				1AB043341B2AAF5800AFF5C7 /* chengyu.json */,
+				1A0AB0111B2C170400355992 /* corpusList.json */,
 				1A3EFAEC1B285503008DC38E /* toefl.json */,
 			);
 			name = Resources;
@@ -154,7 +159,8 @@
 		1A3EFAF41B298496008DC38E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1A3EFAF01B288BB6008DC38E /* WordData.swift */,
+				1A3EFAF01B288BB6008DC38E /* WordCorpus.swift */,
+				1A0AB0131B2C180D00355992 /* Utility.swift */,
 				1A3EFAE61B27FC52008DC38E /* WOColor.swift */,
 			);
 			name = Models;
@@ -245,6 +251,7 @@
 				1AB043331B2AAF4800AFF5C7 /* WordView.xib in Resources */,
 				1A3EFACA1B27FBB8008DC38E /* Main.storyboard in Resources */,
 				1A3EFACC1B27FBB8008DC38E /* Images.xcassets in Resources */,
+				1A0AB0121B2C170400355992 /* corpusList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,12 +271,13 @@
 			files = (
 				1A3EFAC71B27FBB8008DC38E /* WordViewController.swift in Sources */,
 				1A3EFAE71B27FC52008DC38E /* WOColor.swift in Sources */,
+				1A0AB0141B2C180D00355992 /* Utility.swift in Sources */,
 				1A3EFAFC1B298C91008DC38E /* ToolBarView.swift in Sources */,
 				1A3EFAC51B27FBB8008DC38E /* AppDelegate.swift in Sources */,
 				1A3EFAFA1B298669008DC38E /* DictSelectionViewController.swift in Sources */,
 				1A3EFAE51B27FC1B008DC38E /* WordView.swift in Sources */,
 				1A3EFAE91B27FD10008DC38E /* SlidableView.swift in Sources */,
-				1A3EFAF11B288BB6008DC38E /* WordData.swift in Sources */,
+				1A3EFAF11B288BB6008DC38E /* WordCorpus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

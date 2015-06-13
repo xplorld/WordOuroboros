@@ -1,0 +1,12 @@
+[
+  {
+    "name": "TOEFL 词汇",
+    "path": "toefl.json",
+    "sample":"Gothic"
+  },
+  {
+  	"name": "成语",
+  	"path": "chengyu.json",
+  	"sample": "偃苗助长"
+  }
+]

@@ -1,5 +1,5 @@
 //
-//  WordCorpusData.swift
+//  WordCorpus.swift
 //  WordOuroboros
 //
 //  Created by Xplorld on 2015/6/10.
@@ -8,13 +8,16 @@
 
 import UIKit
 
+///can switch to any type conforms to `CollectionType`
 typealias WordType = String
 typealias CharacterType = WordType.Generator.Element
 
-let Corpora:[WordCorpus] = [
+let Corpora:[WordCorpus] = (JSONObjectFromFile("corpusList.json") as! [[String:String]])
+        .map{WordCorpus(name:$0["name"]!,path:$0["path"]!,sample:$0["sample"]!)}
+/*[
     WordCorpus(name:"TOEFL 词汇",path:"toefl.json",sample:"Gothic"),
     WordCorpus(name:"成语",path:"chengyu.json",sample:"偃苗助长")
-]
+]*/
 
 /**a corpus.
 
@@ -38,10 +41,7 @@ class WordCorpus {
     var data:WordCorpusData {
         if (_data == nil) {
             let data = WordCorpusData()
-            let fileName = self.path.stringByDeletingPathExtension
-            let type = self.path.pathExtension
-            let truePath = NSBundle.mainBundle().pathForResource(fileName, ofType: type)!
-            let json = NSJSONSerialization.JSONObjectWithData(NSData(contentsOfFile: truePath)!, options: .AllowFragments, error: nil) as? [String] ?? []
+            let json = JSONObjectFromFile(self.path) as! [String]
             data.setWords(json)
             _data = data
             return data
@@ -52,7 +52,8 @@ class WordCorpus {
 }
 class WordCorpusData {
     var usedWords:[WordType] = []
-    //[Character:[String]]
+    
+    ///[Character:[String]]
     var headMap:[CharacterType:[WordType]] = [:]
     var tailMap:[CharacterType:[WordType]] = [:]
     func setWords(words:[WordType]) {
@@ -71,9 +72,6 @@ class WordCorpusData {
                 tailMap[tail]!.append(word)
             }
         }
-    }
-    deinit {
-        println("corpus data deinited,sample \(headMap.values.first?.first)")
     }
 }
 
