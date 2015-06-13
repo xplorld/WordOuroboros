@@ -12,7 +12,7 @@ class WordViewController: UIViewController {
     
     @IBOutlet var slidableView:SlidableView!
     @IBOutlet weak var toolBarView: ToolBarView!
-    var data = WordData.TOEFLWordsData()
+    var corpusData = Corpora[0].data
     var tapGestureRecognizer:UITapGestureRecognizer!
     
     override func viewDidLoad() {
@@ -67,7 +67,7 @@ class WordViewController: UIViewController {
     func refreshDidTap() {
         let view = slidableView.dequeueView() as! WordView
         view.backgroundColor = WOColor.getColor()
-        view.text = data.randomWord() ?? ""
+        view.text = corpusData.randomWord() ?? ""
         slidableView.setCurrentView(view)
     }
     
@@ -87,12 +87,12 @@ extension WordViewController : SlidableViewDelegate {
         
         let newWord:String?
         if direction.isVertical() {
-            newWord = data.wordBesidesWord(oldWord)
+            newWord = corpusData.wordBesidesWord(oldWord)
         } else if direction == PanGestureDirection.Left {
-            newWord = data.wordNextToWord(oldWord)
+            newWord = corpusData.wordNextToWord(oldWord)
         } else {
             //.Right
-            newWord = data.wordBeforeWord(oldWord)
+            newWord = corpusData.wordBeforeWord(oldWord)
         }
         
         if newWord != nil {
@@ -106,8 +106,8 @@ extension WordViewController : SlidableViewDelegate {
 }
 
 extension WordViewController : DictSelectionViewControllerDelegate {
-    func didSelectDict(dict:WordData) {
-        self.data = dict
+    func didSelectCorpus(corpus: WordCorpus) {
+        self.corpusData = corpus.data
         refreshDidTap()
         self.dismissViewControllerAnimated(true, completion: nil)
     }

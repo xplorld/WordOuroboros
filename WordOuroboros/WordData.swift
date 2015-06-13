@@ -1,5 +1,5 @@
 //
-//  WordData.swift
+//  WordCorpusData.swift
 //  WordOuroboros
 //
 //  Created by Xplorld on 2015/6/10.
@@ -8,15 +8,54 @@
 
 import UIKit
 
-private var _TOEFLWordsData:WordData?
-private var _IdiomWordsData:WordData?
+typealias WordType = String
+typealias CharacterType = WordType.Generator.Element
 
-class WordData {
+let Corpora:[WordCorpus] = [
+    WordCorpus(name:"TOEFL 词汇",path:"toefl.json",sample:"Gothic"),
+    WordCorpus(name:"成语",path:"chengyu.json",sample:"偃苗助长")
+]
+
+/**a corpus.
+
+:IMPORTANT:
+
+this class does not hold strong reference of `data`, for the sake of saving memory.
+
+User of this class shall hold strong reference for both `WordCorpus` and `WordCorpus.data`
+
+*/
+class WordCorpus {
+    let path:String
     let name:String
-    var usedWords:[String] = []
-    var headMap:[Character:[String]] = [:]
-    var tailMap:[Character:[String]] = [:]
-    func setWords(words:[String]) {
+    let sample:WordType
+    init(name: String,path: String,sample:WordType) {
+        self.name = name
+        self.path = path
+        self.sample = sample
+    }
+    /**`lazy weak` data object*/
+    var data:WordCorpusData {
+        if (_data == nil) {
+            let data = WordCorpusData()
+            let fileName = self.path.stringByDeletingPathExtension
+            let type = self.path.pathExtension
+            let truePath = NSBundle.mainBundle().pathForResource(fileName, ofType: type)!
+            let json = NSJSONSerialization.JSONObjectWithData(NSData(contentsOfFile: truePath)!, options: .AllowFragments, error: nil) as? [String] ?? []
+            data.setWords(json)
+            _data = data
+            return data
+        }
+        return _data!
+    }
+    private weak var _data:WordCorpusData?
+}
+class WordCorpusData {
+    var usedWords:[WordType] = []
+    //[Character:[String]]
+    var headMap:[CharacterType:[WordType]] = [:]
+    var tailMap:[CharacterType:[WordType]] = [:]
+    func setWords(words:[WordType]) {
         for word in words {
             if let head = first(word) {
                 if headMap[head] == nil {
@@ -33,36 +72,15 @@ class WordData {
             }
         }
     }
-    init(name:String) {
-        self.name = name
-    }
-    
-
-    class func TOEFLWordsData() -> WordData {
-        if _TOEFLWordsData != nil {
-            return _TOEFLWordsData!
-        }
-        
-        let data = WordData(name: "TOEFL 单词")
-        data.setWords(NSJSONSerialization.JSONObjectWithData(NSData(contentsOfFile: NSBundle.mainBundle().pathForResource("toefl", ofType: "json")!)!, options: .AllowFragments, error: nil) as? [String] ?? [])
-        _TOEFLWordsData = data
-        return data
-    }
-    class func IdiomWordsData() -> WordData {
-        if _IdiomWordsData != nil {
-            return _IdiomWordsData!
-        }
-        let data = WordData(name:"成语")
-        data.setWords(NSJSONSerialization.JSONObjectWithData(NSData(contentsOfFile: NSBundle.mainBundle().pathForResource("chengyu", ofType: "json")!)!, options: .AllowFragments, error: nil) as? [String] ?? [])
-        _IdiomWordsData = data
-        return data
+    deinit {
+        println("corpus data deinited,sample \(headMap.values.first?.first)")
     }
 }
 
 //word providing methods
 //interface
-extension WordData {
-    private func wordOfRelationshipToWord(old:String,relation:WordRelationship) -> String? {
+extension WordCorpusData {
+    private func wordOfRelationshipToWord(old:WordType,relation:WordRelationship) -> WordType? {
         if old == "" {
             return nil
         }
@@ -76,16 +94,16 @@ extension WordData {
         }
         return nil
     }
-    func wordBeforeWord(old:String) -> String? {
+    func wordBeforeWord(old:WordType) -> WordType? {
         return wordOfRelationshipToWord(old, relation: .Before)
     }
-    func wordNextToWord(old:String) -> String? {
+    func wordNextToWord(old:WordType) -> WordType? {
         return wordOfRelationshipToWord(old, relation: .After)
     }
-    func wordBesidesWord(old:String) -> String? {
+    func wordBesidesWord(old:WordType) -> WordType? {
         return wordOfRelationshipToWord(old, relation: .Besides)
     }
-    func randomWord() -> String? {
+    func randomWord() -> WordType? {
         if headMap.isEmpty {
             return nil
         }
@@ -96,9 +114,9 @@ extension WordData {
         return strs[j]
     }
     
-    private func charPosition(relationship:WordRelationship) -> (old:(String)->Character?,new:(Character)->[String]) {
-        var lastSelector:(Character)->[String] = {self.tailMap[$0] ?? []}
-        let firstSelector:(Character)->[String] = {self.headMap[$0] ?? []}
+    private func charPosition(relationship:WordRelationship) -> (old:(WordType)->CharacterType?,new:(CharacterType)->[WordType]) {
+        var lastSelector:(CharacterType)->[WordType] = {self.tailMap[$0] ?? []}
+        let firstSelector:(CharacterType)->[WordType] = {self.headMap[$0] ?? []}
         
         switch relationship {
         case .Before:

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DictSelectionViewControllerDelegate : class {
-    func didSelectDict(dict:WordData)
+    func didSelectCorpus(corpus:WordCorpus)
 }
 
 class DictSelectionViewController: UIViewController {
@@ -24,7 +24,7 @@ class DictSelectionViewController: UIViewController {
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    let dicts:[WordData] = [WordData.TOEFLWordsData(),WordData.IdiomWordsData()]
+    let corpora:[WordCorpus] = Corpora
     weak var delegate:DictSelectionViewControllerDelegate?
 }
 
@@ -35,19 +35,19 @@ extension DictSelectionViewController : UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dicts.count
+        return corpora.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DictCell") as! UITableViewCell
-        let data = dicts[indexPath.row]
-        cell.textLabel?.text = data.name
-        cell.detailTextLabel?.text = data.randomWord()
+        let corpus = corpora[indexPath.row]
+        cell.textLabel?.text = corpus.name
+        cell.detailTextLabel?.text = corpus.sample
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        delegate?.didSelectDict(dicts[indexPath.row])
+        delegate?.didSelectCorpus(corpora[indexPath.row])
     }
 
 }
