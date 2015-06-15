@@ -74,21 +74,23 @@ class WordCorpusData {
             headMap.removeAll(keepCapacity: true)
             tailMap.removeAll(keepCapacity: true)
             for word in words {
-                if let head = first(word.string) {
-                    if headMap[head] == nil {
-                        headMap[head] = []
-                    }
-                    headMap[head]!.append(word)
-                }
-                
-                if let tail = last(word.string) {
-                    if tailMap[tail] == nil {
-                        tailMap[tail] = []
-                    }
-                    tailMap[tail]!.append(word)
-                }
+                addWord(word)
             }
-            
+        }
+    }
+    private func addWord(word:WordType) {
+        if let head = first(word.string) {
+            if headMap[head] == nil {
+                headMap[head] = []
+            }
+            headMap[head]!.append(word)
+        }
+        
+        if let tail = last(word.string) {
+            if tailMap[tail] == nil {
+                tailMap[tail] = []
+            }
+            tailMap[tail]!.append(word)
         }
     }
     var headMap:[CharacterType:[WordType]] = [:]
@@ -119,30 +121,49 @@ extension WordCorpusData {
             if let index = find(wordHistory, old) {
                 //"ab" with ["eg","gb","bc","cf"] becomes ["ab","bc","cf"]
                 wordHistory.removeRange(0..<index)
+                wordHistory.insert(theWord, atIndex: 0)
+            } else {
+                wordHistory = [theWord,old]
             }
-            wordHistory.insert(theWord, atIndex: 0)
-            
             return theWord
         }
         return nil
     }
     func wordNextToWord(old:WordType) -> WordType? {
         if let theWord = wordOfRelationshipToWord(old, relation: .After) {
-            let index = find(wordHistory, old)!
-            wordHistory.removeRange((index+1)..<wordHistory.endIndex)
-            wordHistory.append(theWord)
+            if let index = find(wordHistory, old) {
+                wordHistory.removeRange((index+1)..<wordHistory.endIndex)
+                wordHistory.append(theWord)
+            } else {
+                wordHistory = [old,theWord]
+            }
             return theWord
         }
         return nil
     }
     func wordBesidesWord(old:WordType) -> WordType? {
         if let theWord = wordOfRelationshipToWord(old, relation: .Besides) {
-            let index = find(wordHistory, old)!
-            wordHistory.removeRange(index..<wordHistory.endIndex)
-            wordHistory.append(theWord)
+            if let index = find(wordHistory, old) {
+                wordHistory.removeRange(index..<wordHistory.endIndex)
+                wordHistory.append(theWord)
+            } else {
+                wordHistory = [theWord]
+            }
             return theWord
         }
         return nil
+    }
+    func wordFromLiteral(string:String) -> WordType? {
+        if let word = (words.filter{$0.string == string}).first {
+            if !contains(wordHistory, word) {
+                wordHistory = [word]
+            }
+            return word
+        }
+        let word = WordType(string)
+        addWord(word)
+        wordHistory = [word]
+        return word
     }
     func randomWord() -> WordType? {
         if headMap.isEmpty {

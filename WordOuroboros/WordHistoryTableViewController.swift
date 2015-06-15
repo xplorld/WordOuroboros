@@ -22,9 +22,7 @@ class WordHistoryTableViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
-        //to supress saparators and empty cells
-        tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .None
     }
 
     override func didReceiveMemoryWarning() {

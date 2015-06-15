@@ -19,25 +19,18 @@ class WordViewController: UIViewController {
         super.viewDidLoad()
         self.prepareSlidableView()
         self.prepareToolBarView()
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapHandler")
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "toolBarTapHandler")
         self.view.addGestureRecognizer(tapGestureRecognizer)
     }
-    func prepareSlidableView() {
-        slidableView.slidableViewDelegate = self
-        slidableView.queueViewMaker = {
-            let view = NSBundle.mainBundle().loadNibNamed("WordView", owner: self, options: nil).first as! WordView
-            view.frame.size = $0.frame.size //$0 is the slidable view
-            return view
-        }
-        self.view.addSubview(slidableView)
-        refreshDidTap()
-
-    }
+}
+//MARK: - tool bar view related
+extension WordViewController : UIAlertViewDelegate {
     func prepareToolBarView() {
         let buttonInfo = [
             ("books","dictSelectionDidTap"),
             ("refresh","refreshDidTap"),
-            ("history","historyDidTap")
+            ("history","historyDidTap"),
+            ("pencil","inputDidTap")
         ]
         
         for (name,action) in buttonInfo {
@@ -50,11 +43,11 @@ class WordViewController: UIViewController {
         
         toolBarView.hidden = true
         toolBarView.alpha = 0
-
+        
         self.view.bringSubviewToFront(toolBarView)
         
     }
-    func tapHandler() {
+    func toolBarTapHandler() {
         let view = toolBarView
         view.hidden = false
         UIView.animateWithDuration(0.2, animations: {view.alpha = view.alpha == 0 ? 1 : 0 }, completion: {_ in if view.alpha == 0 {view.hidden = true} })
@@ -76,15 +69,37 @@ class WordViewController: UIViewController {
         let nav = UINavigationController(rootViewController: vc)
         presentViewController(nav, animated: true, completion: nil)
     }
-    
+    func inputDidTap() {
+        let alert = UIAlertView(title: "输入词语", message: nil, delegate: self, cancelButtonTitle: "取消")
+        alert.addButtonWithTitle("确定")
+        alert.alertViewStyle = UIAlertViewStyle.PlainTextInput
+        alert.show()
+    }
+    func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
+        if buttonIndex != alertView.cancelButtonIndex {
+            if let text = alertView.textFieldAtIndex(0)?.text {
+                if !isEmpty(text) {
+                    let word = corpusData.wordFromLiteral(text)
+                    let view = slidableView.dequeueView() as! WordView
+                    view.word = word
+                    slidableView.setCurrentView(view)
+                }
+            }
+        }
+    }
 }
 
 extension WordViewController : SlidableViewDelegate {
-    
-    func getViewFromSlidable() -> WordView {
-        let view = slidableView.dequeueView() as! WordView
-        view.frame.size = self.slidableView.frame.size
-        return view
+    func prepareSlidableView() {
+        slidableView.slidableViewDelegate = self
+        slidableView.queueViewMaker = {
+            let view = NSBundle.mainBundle().loadNibNamed("WordView", owner: self, options: nil).first as! WordView
+            view.frame.size = $0.frame.size //$0 is the slidable view
+            return view
+        }
+        self.view.addSubview(slidableView)
+        refreshDidTap()
+        
     }
     
     func viewOfDirection(direction: PanGestureDirection, slidableView: SlidableView, currentView: UIView) -> UIView? {
@@ -101,7 +116,7 @@ extension WordViewController : SlidableViewDelegate {
         }
         
         if newWord != nil {
-            let view = getViewFromSlidable()
+            let view = slidableView.dequeueView() as! WordView
             view.word = newWord!
             return view
         } else {
@@ -130,7 +145,7 @@ extension WordViewController : WordHistoryTableViewControllerDelegate {
     func slidableViewDidScroll(slidableView: SlidableView) {
         if !toolBarView.hidden {
             //dismiss tool bar
-            tapHandler()
+            toolBarTapHandler()
         }
     }
 }

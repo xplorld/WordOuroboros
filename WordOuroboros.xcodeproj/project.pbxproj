@@ -104,13 +104,7 @@
 				1A3EFAF31B298487008DC38E /* Views */,
 				1A3EFAF21B298479008DC38E /* Resources */,
 				1A3EFAF41B298496008DC38E /* Models */,
-				1A3EFAC41B27FBB8008DC38E /* AppDelegate.swift */,
-				1A3EFAC61B27FBB8008DC38E /* WordViewController.swift */,
-				1A3EFAC81B27FBB8008DC38E /* Main.storyboard */,
-				1A079F841B2C372E00E6763A /* WordHistoryCellTableViewCell.swift */,
-				1A3EFAF91B298669008DC38E /* DictSelectionViewController.swift */,
-				1A079F821B2C324800E6763A /* WordHistoryTableViewController.swift */,
-				1A3EFACB1B27FBB8008DC38E /* Images.xcassets */,
+				1AE1CBDF1B2ECA0F00E17491 /* Controllers */,
 				1A3EFAC21B27FBB8008DC38E /* Supporting Files */,
 			);
 			path = WordOuroboros;
@@ -119,6 +113,8 @@
 		1A3EFAC21B27FBB8008DC38E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1A3EFACB1B27FBB8008DC38E /* Images.xcassets */,
+				1A3EFAC41B27FBB8008DC38E /* AppDelegate.swift */,
 				1A3EFAC31B27FBB8008DC38E /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -155,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				1AB043321B2AAF4800AFF5C7 /* WordView.xib */,
+				1A3EFAC81B27FBB8008DC38E /* Main.storyboard */,
+				1A079F841B2C372E00E6763A /* WordHistoryCellTableViewCell.swift */,
 				1A3EFAE81B27FD10008DC38E /* SlidableView.swift */,
 				1A3EFAFB1B298C91008DC38E /* ToolBarView.swift */,
 				1A3EFAE41B27FC1B008DC38E /* WordView.swift */,
@@ -170,6 +168,16 @@
 				1A3EFAE61B27FC52008DC38E /* WOColor.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		1AE1CBDF1B2ECA0F00E17491 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1A3EFAC61B27FBB8008DC38E /* WordViewController.swift */,
+				1A3EFAF91B298669008DC38E /* DictSelectionViewController.swift */,
+				1A079F821B2C324800E6763A /* WordHistoryTableViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
