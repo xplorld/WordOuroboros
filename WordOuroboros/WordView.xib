@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,21 +13,45 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgv-7s-fho">
-                    <rect key="frame" x="68" y="236" width="185" height="96"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Word" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgv-7s-fho">
+                    <rect key="frame" x="68" y="214" width="185" height="96"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="5" id="D1f-dg-xji"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="80"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="D1f-dg-xji"/>
+                        </mask>
+                    </variation>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Txu-dh-t9R">
+                    <rect key="frame" x="8" y="274" width="4" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="dgv-7s-fho" secondAttribute="centerY" id="8aQ-nk-aqG"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dgv-7s-fho" secondAttribute="trailing" id="MRD-ru-jIt"/>
+                <constraint firstAttribute="centerX" secondItem="dgv-7s-fho" secondAttribute="centerX" id="1d9-Mz-J4C"/>
+                <constraint firstAttribute="centerY" secondItem="dgv-7s-fho" secondAttribute="bottom" id="8aQ-nk-aqG"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dgv-7s-fho" secondAttribute="trailing" constant="20" symbolic="YES" id="MRD-ru-jIt"/>
+                <constraint firstAttribute="centerY" secondItem="Txu-dh-t9R" secondAttribute="centerY" id="P6R-nV-Q8X"/>
                 <constraint firstAttribute="centerX" secondItem="dgv-7s-fho" secondAttribute="centerX" id="P7B-Qb-Sck"/>
-                <constraint firstItem="dgv-7s-fho" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" id="cfJ-7R-g8Y"/>
+                <constraint firstItem="dgv-7s-fho" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="cfJ-7R-g8Y"/>
+                <constraint firstItem="Txu-dh-t9R" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="duB-YE-Dxj"/>
+                <constraint firstItem="Txu-dh-t9R" firstAttribute="baseline" secondItem="dgv-7s-fho" secondAttribute="baseline" id="zHY-vf-Gpg"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="8aQ-nk-aqG"/>
+                    <exclude reference="P7B-Qb-Sck"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="label" destination="dgv-7s-fho" id="GdY-Ua-SiL"/>
             </connections>

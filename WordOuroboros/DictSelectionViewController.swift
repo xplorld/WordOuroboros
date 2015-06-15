@@ -42,7 +42,7 @@ extension DictSelectionViewController : UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCellWithIdentifier("CorpusCell") as! UITableViewCell
         let corpus = corpora[indexPath.row]
         cell.textLabel?.text = corpus.name
-        cell.detailTextLabel?.text = corpus.sample
+        cell.detailTextLabel?.text = corpus.sample.string
         return cell
     }
     

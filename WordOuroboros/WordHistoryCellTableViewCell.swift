@@ -15,6 +15,7 @@ class WordHistoryCellTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        wordLabel.textColor = WOColor.textColor
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

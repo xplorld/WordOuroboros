@@ -67,8 +67,7 @@ class WordViewController: UIViewController {
     }
     func refreshDidTap() {
         let view = slidableView.dequeueView() as! WordView
-        view.backgroundColor = WOColor.getColor()
-        view.text = corpusData.randomWord() ?? ""
+        view.word = corpusData.randomWord()
         slidableView.setCurrentView(view)
     }
     func historyDidTap() {
@@ -82,20 +81,19 @@ class WordViewController: UIViewController {
 
 extension WordViewController : SlidableViewDelegate {
     
-    func makeView() -> WordView {
+    func getViewFromSlidable() -> WordView {
         let view = slidableView.dequeueView() as! WordView
         view.frame.size = self.slidableView.frame.size
-        view.backgroundColor = WOColor.getColor()
         return view
     }
     
     func viewOfDirection(direction: PanGestureDirection, slidableView: SlidableView, currentView: UIView) -> UIView? {
-        let oldWord = (currentView as! WordView).text
+        let oldWord = (currentView as! WordView).word
         
-        let newWord:String?
+        let newWord:WordType?
         if direction.isVertical() {
             newWord = corpusData.wordBesidesWord(oldWord)
-        } else if direction == PanGestureDirection.Left {
+        } else if direction == .Left {
             newWord = corpusData.wordNextToWord(oldWord)
         } else {
             //.Right
@@ -103,8 +101,8 @@ extension WordViewController : SlidableViewDelegate {
         }
         
         if newWord != nil {
-            let view = makeView()
-            view.text = newWord!
+            let view = getViewFromSlidable()
+            view.word = newWord!
             return view
         } else {
             return nil
@@ -126,8 +124,7 @@ extension WordViewController : WordHistoryTableViewControllerDelegate {
     }
     func didSelectWord(word: WordType) {
         let view = slidableView.dequeueView() as! WordView
-        view.text = word
-        view.backgroundColor = WOColor.getColor()
+        view.word = word
         slidableView.setCurrentView(view)
     }
 }

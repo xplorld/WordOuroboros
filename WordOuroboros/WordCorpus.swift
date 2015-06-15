@@ -8,9 +8,19 @@
 
 import UIKit
 
-///can switch to any type conforms to `CollectionType`
-typealias WordType = String
-typealias CharacterType = WordType.Generator.Element
+class WordType : Equatable {
+    let string:String
+    lazy var color:UIColor = {
+        WOColor.getColor()
+        }()
+    init(_ s:String) {
+        string = s
+    }
+}
+func ==(lhs:WordType,rhs:WordType) -> Bool {
+    return lhs.string == rhs.string
+}
+typealias CharacterType = Character
 
 /**
 array of WordCorpus like
@@ -21,7 +31,7 @@ path:"toefl.json",
 sample:"Gothic")
 */
 let Corpora:[WordCorpus] = (JSONObjectFromFile("corpusList.json") as! [[String:String]])
-    .map{WordCorpus(name:$0["name"]!,path:$0["path"]!,sample:$0["sample"]!)}
+    .map{WordCorpus(name:$0["name"]!,path:$0["path"]!,sample:WordType($0["sample"]!))}
 
 
 /**a corpus.
@@ -47,7 +57,7 @@ class WordCorpus {
         if (_data == nil) {
             let data = WordCorpusData()
             let json = JSONObjectFromFile(self.path) as! [String]
-            data.setWords(json)
+            data.words = json.map{WordType($0)}
             _data = data
             return data
         }
@@ -59,25 +69,30 @@ class WordCorpusData {
     var usedWords:[WordType] = []
     
     ///[Character:[String]]
-    var headMap:[CharacterType:[WordType]] = [:]
-    var tailMap:[CharacterType:[WordType]] = [:]
-    private func setWords(words:[WordType]) {
-        for word in words {
-            if let head = first(word) {
-                if headMap[head] == nil {
-                    headMap[head] = []
+    var words:[WordType] = [] {
+        didSet {
+            headMap.removeAll(keepCapacity: true)
+            tailMap.removeAll(keepCapacity: true)
+            for word in words {
+                if let head = first(word.string) {
+                    if headMap[head] == nil {
+                        headMap[head] = []
+                    }
+                    headMap[head]!.append(word)
                 }
-                headMap[head]!.append(word)
+                
+                if let tail = last(word.string) {
+                    if tailMap[tail] == nil {
+                        tailMap[tail] = []
+                    }
+                    tailMap[tail]!.append(word)
+                }
             }
             
-            if let tail = last(word) {
-                if tailMap[tail] == nil {
-                    tailMap[tail] = []
-                }
-                tailMap[tail]!.append(word)
-            }
         }
     }
+    var headMap:[CharacterType:[WordType]] = [:]
+    var tailMap:[CharacterType:[WordType]] = [:]
     
     //TODO: change history from list to graph (like git?)
     var wordHistory:[WordType] = []
@@ -87,7 +102,7 @@ class WordCorpusData {
 //interface
 extension WordCorpusData {
     private func wordOfRelationshipToWord(old:WordType,relation:WordRelationship) -> WordType? {
-        if old == "" {
+        if isEmpty(old.string) {
             return nil
         }
         let (oldPicker,newPicker) = charPosition(relation)
@@ -101,9 +116,10 @@ extension WordCorpusData {
     }
     func wordBeforeWord(old:WordType) -> WordType? {
         if let theWord = wordOfRelationshipToWord(old, relation: .Before) {
-            let index = find(wordHistory, old)!
-            //"ab" with ["eg","gb","bc","cf"] becomes ["ab","bc","cf"]
-            wordHistory.removeRange(0..<index)
+            if let index = find(wordHistory, old) {
+                //"ab" with ["eg","gb","bc","cf"] becomes ["ab","bc","cf"]
+                wordHistory.removeRange(0..<index)
+            }
             wordHistory.insert(theWord, atIndex: 0)
             
             return theWord
@@ -144,16 +160,18 @@ extension WordCorpusData {
     
     
     private func charPosition(relationship:WordRelationship) -> (old:(WordType)->CharacterType?,new:(CharacterType)->[WordType]) {
-        var lastSelector:(CharacterType)->[WordType] = {self.tailMap[$0] ?? []}
+        let firstChar:(WordType)->CharacterType? = {first($0.string)}
+        let lastChar:(WordType)->CharacterType? = {last($0.string)}
+        let lastSelector:(CharacterType)->[WordType] = {self.tailMap[$0] ?? []}
         let firstSelector:(CharacterType)->[WordType] = {self.headMap[$0] ?? []}
         
         switch relationship {
         case .Before:
-            return (first,lastSelector)
+            return (firstChar,lastSelector)
         case .After:
-            return (last,firstSelector)
+            return (lastChar,firstSelector)
         case .Besides:
-            return (first,firstSelector)
+            return (firstChar,firstSelector)
         case .Irrelevant:
             fatalError("hehe")
             

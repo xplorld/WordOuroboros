@@ -8,10 +8,10 @@
 
 import UIKit
 
-@objc protocol WordHistoryTableViewControllerDelegate: class {
-    //TODO: set as append new
+protocol WordHistoryTableViewControllerDelegate: class {
+    //TODO: set for append new
     var wordHistory:[WordType] {get}
-    optional func didSelectWord(word:WordType)
+    func didSelectWord(word:WordType)
 }
 
 class WordHistoryTableViewController: UIViewController {
@@ -53,7 +53,7 @@ class WordHistoryTableViewController: UIViewController {
 extension WordHistoryTableViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let word = delegate.wordHistory[indexPath.row]
-        delegate.didSelectWord?(word)
+        delegate.didSelectWord(word)
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
@@ -70,8 +70,9 @@ extension WordHistoryTableViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("WordCell", forIndexPath: indexPath) as! WordHistoryCellTableViewCell
-        cell.wordLabel.text = delegate.wordHistory[indexPath.row]
-        cell.backgroundColor = WOColor.getColor()
+        var word = delegate.wordHistory[indexPath.row]
+        cell.wordLabel.text = word.string
+        cell.backgroundColor = word.color
         return cell
     }
 }

@@ -11,12 +11,18 @@ import UIKit
 class WordView: UIView {
     
     @IBOutlet var label:UILabel!
-    var text:String {
-        get {
-            return label.text ?? ""
+    var word:WordType! {
+        didSet {
+            if word != nil {
+                label.text = word.string
+                backgroundColor = word.color
+                self.setNeedsUpdateConstraints()
+            }
         }
-        set {
-            label.text = newValue
-        }
+    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        label.textColor = WOColor.textColor
+        label.adjustsFontSizeToFitWidth = true
     }
 }
