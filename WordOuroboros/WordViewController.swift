@@ -19,7 +19,7 @@ class WordViewController: UIViewController {
         super.viewDidLoad()
         self.prepareSlidableView()
         self.prepareToolBarView()
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapHandler:")
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapHandler")
         self.view.addGestureRecognizer(tapGestureRecognizer)
     }
     func prepareSlidableView() {
@@ -54,7 +54,7 @@ class WordViewController: UIViewController {
         self.view.bringSubviewToFront(toolBarView)
         
     }
-    func tapHandler(sender:UIGestureRecognizer) {
+    func tapHandler() {
         let view = toolBarView
         view.hidden = false
         UIView.animateWithDuration(0.2, animations: {view.alpha = view.alpha == 0 ? 1 : 0 }, completion: {_ in if view.alpha == 0 {view.hidden = true} })
@@ -126,6 +126,12 @@ extension WordViewController : WordHistoryTableViewControllerDelegate {
         let view = slidableView.dequeueView() as! WordView
         view.word = word
         slidableView.setCurrentView(view)
+    }
+    func slidableViewDidScroll(slidableView: SlidableView) {
+        if !toolBarView.hidden {
+            //dismiss tool bar
+            tapHandler()
+        }
     }
 }
 
