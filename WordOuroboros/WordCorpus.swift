@@ -144,7 +144,7 @@ extension WordCorpusData {
         let (oldPicker,newPicker) = charPosition(relation)
         if let
             oldChar = oldPicker(old),
-            new = (newPicker(oldChar).filter{!contains(self.usedWords, $0)}.first) {
+            new = (newPicker(oldChar).filter{[weak self] in !contains(self!.usedWords, $0)}.first) {
                 usedWords.append(new)
                 return new
         }
@@ -217,8 +217,8 @@ extension WordCorpusData {
     private func charPosition(relationship:WordRelationship) -> (old:(WordType)->CharacterType?,new:(CharacterType)->[WordType]) {
         let firstChar:(WordType)->CharacterType? = {first($0.string)}
         let lastChar:(WordType)->CharacterType? = {last($0.string)}
-        let lastSelector:(CharacterType)->[WordType] = {self.tailMap[$0] ?? []}
-        let firstSelector:(CharacterType)->[WordType] = {self.headMap[$0] ?? []}
+        let lastSelector:(CharacterType)->[WordType] = {[weak self] in self!.tailMap[$0] ?? []}
+        let firstSelector:(CharacterType)->[WordType] = {[weak self] in self!.headMap[$0] ?? []}
         
         switch relationship {
         case .Before:
