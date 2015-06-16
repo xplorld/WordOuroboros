@@ -10,17 +10,22 @@ import UIKit
 
 class WordType : Equatable {
     let string:String
+    let detailedString:String?
     lazy var color:UIColor = {
         WOColor.getColor()
         }()
     init(_ s:String) {
         string = s
+        detailedString = nil
+    }
+    init(s:String,detailedString:String?) {
+        self.string = s
+        self.detailedString = detailedString
     }
 }
 func ==(lhs:WordType,rhs:WordType) -> Bool {
     return lhs.string == rhs.string
 }
-typealias CharacterType = Character
 
 /**
 array of WordCorpus like
@@ -30,8 +35,14 @@ name:"TOEFL 词汇",
 path:"toefl.json",
 sample:"Gothic")
 */
-let Corpora:[WordCorpus] = (JSONObjectFromFile("corpusList.json") as! [[String:String]])
-    .map{WordCorpus(name:$0["name"]!,path:$0["path"]!,sample:WordType($0["sample"]!))}
+let Corpora:[WordCorpus] = (JSONObjectFromFile("corpusList.json") as! [[String:AnyObject]])
+    .map{WordCorpus(
+        name:$0["name"] as! String,
+        path:$0["path"] as! String,
+        sample:WordType($0["sample"] as! String),
+        stringKey:$0["stringKey"] as? String,
+        detailedStringKeys:$0["detailedStringKeys"] as? [String]
+        )}
 
 
 /**a corpus.
@@ -47,17 +58,39 @@ class WordCorpus {
     let path:String
     let name:String
     let sample:WordType
-    init(name: String,path: String,sample:WordType) {
+    private let stringKey:String?
+    private let detailedStringKeys:[String]?
+    init(name: String,path: String,sample:WordType,stringKey:String?,detailedStringKeys:[String]?) {
         self.name = name
         self.path = path
         self.sample = sample
+        self.stringKey = stringKey
+        self.detailedStringKeys = detailedStringKeys
     }
     /**`lazy weak` data object*/
     var data:WordCorpusData {
         if (_data == nil) {
             let data = WordCorpusData()
-            let json = JSONObjectFromFile(self.path) as! [String]
-            data.words = json.map{WordType($0)}
+            if stringKey == nil {
+                let json = JSONObjectFromFile(self.path) as! [String]
+                data.words = json.map{WordType($0)}
+            } else {
+                let json = JSONObjectFromFile(self.path) as! [[String:String]]
+                data.words = json.map {
+                    (dict:[String:String]) -> WordType in
+                    //what if Swift have monad
+                    let detail:String
+                    if let keys = self.detailedStringKeys {
+                        detail = " ".join(keys.map{dict[$0] ?? ""})
+                    } else {
+                        detail = ""
+                    }
+                    return WordType(
+                        s: dict[self.stringKey!]!,
+                        detailedString:detail
+                    )
+                }
+            }
             _data = data
             return data
         }
@@ -66,6 +99,7 @@ class WordCorpus {
     private weak var _data:WordCorpusData?
 }
 class WordCorpusData {
+    typealias CharacterType = Character
     var usedWords:[WordType] = []
     
     ///[Character:[String]]

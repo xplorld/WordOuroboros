@@ -8,5 +8,12 @@
   	"name": "成语",
   	"path": "chengyu.json",
   	"sample": "偃苗助长"
-  }
+  },
+ {
+ "name": "诗词",
+ "path": "poemLines.json",
+ "sample": "床前明月光",
+"detailedStringKeys": ["name","poet"],
+ "stringKey": "line"
+ }
 ]

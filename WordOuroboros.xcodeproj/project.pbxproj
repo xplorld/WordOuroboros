@@ -23,6 +23,7 @@
 		1A3EFAF11B288BB6008DC38E /* WordCorpus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAF01B288BB6008DC38E /* WordCorpus.swift */; };
 		1A3EFAFA1B298669008DC38E /* DictSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAF91B298669008DC38E /* DictSelectionViewController.swift */; };
 		1A3EFAFC1B298C91008DC38E /* ToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3EFAFB1B298C91008DC38E /* ToolBarView.swift */; };
+		1A958E3B1B30887600D381E4 /* poemLines.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A958E3A1B30887600D381E4 /* poemLines.json */; };
 		1AB043331B2AAF4800AFF5C7 /* WordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AB043321B2AAF4800AFF5C7 /* WordView.xib */; };
 		1AB043351B2AAF5800AFF5C7 /* chengyu.json in Resources */ = {isa = PBXBuildFile; fileRef = 1AB043341B2AAF5800AFF5C7 /* chengyu.json */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		1A3EFAF01B288BB6008DC38E /* WordCorpus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCorpus.swift; sourceTree = "<group>"; };
 		1A3EFAF91B298669008DC38E /* DictSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictSelectionViewController.swift; sourceTree = "<group>"; };
 		1A3EFAFB1B298C91008DC38E /* ToolBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarView.swift; sourceTree = "<group>"; };
+		1A958E3A1B30887600D381E4 /* poemLines.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = poemLines.json; sourceTree = "<group>"; };
 		1AB043321B2AAF4800AFF5C7 /* WordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WordView.xib; sourceTree = "<group>"; };
 		1AB043341B2AAF5800AFF5C7 /* chengyu.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chengyu.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,6 +142,7 @@
 		1A3EFAF21B298479008DC38E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1A958E3A1B30887600D381E4 /* poemLines.json */,
 				1AB043341B2AAF5800AFF5C7 /* chengyu.json */,
 				1A0AB0111B2C170400355992 /* corpusList.json */,
 				1A3EFAEC1B285503008DC38E /* toefl.json */,
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A3EFAED1B285503008DC38E /* toefl.json in Resources */,
+				1A958E3B1B30887600D381E4 /* poemLines.json in Resources */,
 				1AB043351B2AAF5800AFF5C7 /* chengyu.json in Resources */,
 				1AB043331B2AAF4800AFF5C7 /* WordView.xib in Resources */,
 				1A3EFACA1B27FBB8008DC38E /* Main.storyboard in Resources */,
