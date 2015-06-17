@@ -116,8 +116,8 @@ class WordCorpusData {
     ///[Character:[String]]
     var words:[WordType] = [] {
         didSet {
-            headMap.removeAll(keepCapacity: true)
-            tailMap.removeAll(keepCapacity: true)
+            headMap.removeAll(keepCapacity: false)
+            tailMap.removeAll(keepCapacity: false)
             for word in words {
                 addWord(word)
             }
@@ -143,6 +143,10 @@ class WordCorpusData {
     
     //TODO: change history from list to graph (like git?)
     var wordHistory:[WordType] = []
+    
+    deinit {
+        println("deinit data like \(words.first?.string)")
+    }
 }
 
 //word providing methods

@@ -13,7 +13,7 @@ class WordView: UIView {
     @IBOutlet var label:UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
-    var word:WordType! {
+    weak var word:WordType! {
         didSet {
             if word != nil {
                 label.text = word.string
