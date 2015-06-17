@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 protocol DictSelectionViewControllerDelegate : class {
     func didSelectCorpus(corpus:WordCorpus)
@@ -47,7 +48,14 @@ extension DictSelectionViewController : UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        delegate?.didSelectCorpus(corpora[indexPath.row])
+        let hud = PKHUDTitleProgressView(title: "加载词库中...")
+        PKHUD.sharedHUD.contentView = hud
+        PKHUD.sharedHUD.show()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+            [unowned self] in
+            self.delegate?.didSelectCorpus(self.corpora[indexPath.row])
+            dispatch_async(dispatch_get_main_queue(), {PKHUD.sharedHUD.hide(animated: true)})
+        }
     }
 
 }
