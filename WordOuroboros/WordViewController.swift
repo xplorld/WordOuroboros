@@ -59,9 +59,13 @@ extension WordViewController : UIAlertViewDelegate {
         presentViewController(nav, animated: true, completion: nil)
     }
     func refreshDidTap() {
-        let view = slidableView.dequeueView() as! WordView
-        view.word = corpusData.randomWord()
-        slidableView.setCurrentView(view)
+        let word = corpusData.randomWord()
+        dispatch_async(dispatch_get_main_queue()) {
+            [unowned self] in
+            let view = self.slidableView.dequeueView() as! WordView
+            view.word = word
+            self.slidableView.setCurrentView(view)
+        }
     }
     func historyDidTap() {
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("WordHistoryTableViewController") as! WordHistoryTableViewController
