@@ -69,28 +69,39 @@ class WordCorpus {
     }
     /**`lazy weak` data object*/
     var data:WordCorpusData {
+        
         if (_data == nil) {
+//            println("start processing json")
+//            let time = CFAbsoluteTimeGetCurrent()
+            
             let data = WordCorpusData()
             if stringKey == nil {
-                let json = JSONObjectFromFile(self.path) as! [String]
-                data.words = json.map{WordType($0)}
+                let json = JSONObjectFromFile(self.path) as! NSArray
+                var words:[WordType] = []
+                for wordLit in json {
+                    words.append(WordType(wordLit as! String))
+                }
+                data.words = words
             } else {
-                let json = JSONObjectFromFile(self.path) as! [[String:String]]
-                data.words = json.map {
-                    (dict:[String:String]) -> WordType in
-                    //what if Swift have monad
-                    let detail:String
+                let json = JSONObjectFromFile(self.path) as! NSArray
+                var words:[WordType] = []
+                for wordDict in json {
+                    let theDict = wordDict as! NSDictionary
+                    let string = theDict[self.stringKey!] as! String
+                    let detail: String
                     if let keys = self.detailedStringKeys {
-                        detail = " ".join(keys.map{dict[$0] ?? ""})
+                        //" ".join(strings) is extremely slow
+                        detail = keys.map{theDict[$0] as? String ?? ""}.reduce("", combine: {$0+" "+$1})
                     } else {
                         detail = ""
                     }
-                    return WordType(
-                        s: dict[self.stringKey!]!,
-                        detailedString:detail
-                    )
+                    words.append(WordType(
+                        s: string,
+                        detailedString:detail))
                 }
+                data.words = words
             }
+//            println("done.\ntime \(CFAbsoluteTimeGetCurrent() - time)")
             _data = data
             return data
         }
