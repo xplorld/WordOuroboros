@@ -50,7 +50,7 @@ extension WordViewController {
 
 
 //MARK: - tool bar view related
-extension WordViewController : UIAlertViewDelegate {
+extension WordViewController {
     func prepareToolBarView() {
         let buttonInfo = [
             ("books","dictSelectionDidTap"),
@@ -81,7 +81,7 @@ extension WordViewController : UIAlertViewDelegate {
             UIView.animateWithDuration(0.2, animations:
                 {
                     view.alpha = 1
-                self.setNeedsStatusBarAppearanceUpdate()
+                    self.setNeedsStatusBarAppearanceUpdate()
             })
         } else {
             UIView.animateWithDuration(0.2, animations: {
@@ -113,22 +113,31 @@ extension WordViewController : UIAlertViewDelegate {
         presentViewController(nav, animated: true, completion: nil)
     }
     func inputDidTap() {
-        let alert = UIAlertView(title: "输入词语", message: nil, delegate: self, cancelButtonTitle: "取消")
-        alert.addButtonWithTitle("确定")
-        alert.alertViewStyle = UIAlertViewStyle.PlainTextInput
-        alert.show()
-    }
-    func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
-        if buttonIndex != alertView.cancelButtonIndex {
-            if let text = alertView.textFieldAtIndex(0)?.text {
-                if !isEmpty(text) {
-                    let word = corpusData.wordFromLiteral(text)
-                    let view = slidableView.dequeueView() as! WordView
-                    view.word = word
-                    slidableView.setCurrentView(view)
-                }
+        let alert = UIAlertController(title: "输入词语", message: nil, preferredStyle: .Alert)
+        
+        let okAction = UIAlertAction(title: "确定", style: .Default, handler: {
+            [unowned self] _ in
+            self.setWordFromLiteral(literal: (alert.textFields![0] as! UITextField).text)
+            })
+        okAction.enabled = false
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: {_ in})
+
+        alert.addTextFieldWithConfigurationHandler({ textField in
+            textField.placeholder = "词语"
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+                okAction.enabled = textField.text != ""
             }
-        }
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    func setWordFromLiteral(literal text:String) {
+        let word = corpusData.wordFromLiteral(text)
+        let view = slidableView.dequeueView() as! WordView
+        view.word = word
+        slidableView.setCurrentView(view)
     }
 }
 
@@ -196,11 +205,11 @@ extension WordViewController : WordHistoryTableViewControllerDelegate {
     }
     func addWord(fromWord word: WordType?) -> Bool {
         if let prev = word,
-         let next = corpusData.wordNextToWord(prev) {
-            didSelectWord(next)
-            return true
+            let next = corpusData.wordNextToWord(prev) {
+                didSelectWord(next)
+                return true
         } else {
-//            refreshWithRandomWord()
+            //            refreshWithRandomWord()
             return false
         }
     }

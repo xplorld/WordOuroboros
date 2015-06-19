@@ -19,6 +19,8 @@ func JSONObjectFromFile(path:String) -> AnyObject? {
     return nil
 }
 
-func showDevelopingAlert(moduleName:String) {
-    UIAlertView(title: "报警啦！", message: "\(moduleName)功能开发中", delegate: nil, cancelButtonTitle: "okay...").show()
+func showDevelopingAlert(moduleName: String,# controller: UIViewController) {
+    let alert = UIAlertController(title: "报警啦!", message: "\(moduleName)功能开发中", preferredStyle: .Alert)
+    alert.addAction(UIAlertAction(title: "好吧", style: .Cancel, handler: nil))
+    controller.presentViewController(alert, animated: true, completion: nil)
 }

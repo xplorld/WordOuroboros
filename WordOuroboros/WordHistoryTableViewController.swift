@@ -43,7 +43,7 @@ class WordHistoryTableViewController: UIViewController {
     }
     
     @IBAction func actionButtonTapped(sender: AnyObject) {
-        showDevelopingAlert("分享")
+        showDevelopingAlert("分享",controller: self)
     }
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
@@ -61,13 +61,14 @@ extension WordHistoryTableViewController : UITableViewDelegate {
             presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
             
         case NEW_WORD_SECTION_INDEX:
-            if delegate.addWord(fromWord: delegate.wordHistory.last) {
-                tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: delegate.wordHistory.count - 1, inSection: WORD_HISTORY_SECTION_INDEX)], withRowAnimation: UITableViewRowAnimation.Top)
-                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: NEW_WORD_SECTION_INDEX), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            if delegate.addWord(fromWord: delegate.wordHistory.last) {
+                tableView.insertRowsAtIndexPaths(
+                    [NSIndexPath(forRow: delegate.wordHistory.count - 1, inSection: WORD_HISTORY_SECTION_INDEX)]
+                    , withRowAnimation: .Top)
+                tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
             } else {
 //                tableView.reloadData()
-                tableView.cellForRowAtIndexPath(indexPath).se
             }
             
         default: break
