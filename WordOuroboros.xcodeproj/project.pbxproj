@@ -27,6 +27,8 @@
 		1AA1C2F21B3173F8002528C3 /* PKHUDTitleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA1C2F11B3173F8002528C3 /* PKHUDTitleProgressView.swift */; };
 		1AB043331B2AAF4800AFF5C7 /* WordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AB043321B2AAF4800AFF5C7 /* WordView.xib */; };
 		1AB043351B2AAF5800AFF5C7 /* chengyu.json in Resources */ = {isa = PBXBuildFile; fileRef = 1AB043341B2AAF5800AFF5C7 /* chengyu.json */; };
+		1AEB14191B3404E80003559E /* CenterImagedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB14181B3404E80003559E /* CenterImagedTableViewCell.swift */; };
+		1AEB141B1B3406B30003559E /* AddWordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB141A1B3406B30003559E /* AddWordTableViewCell.swift */; };
 		89C07D60618BDD581A4A914F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FDD6BAB7901A99CA0E76A11 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -66,6 +68,8 @@
 		1AA1C2F11B3173F8002528C3 /* PKHUDTitleProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDTitleProgressView.swift; sourceTree = "<group>"; };
 		1AB043321B2AAF4800AFF5C7 /* WordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WordView.xib; sourceTree = "<group>"; };
 		1AB043341B2AAF5800AFF5C7 /* chengyu.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chengyu.json; sourceTree = "<group>"; };
+		1AEB14181B3404E80003559E /* CenterImagedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterImagedTableViewCell.swift; sourceTree = "<group>"; };
+		1AEB141A1B3406B30003559E /* AddWordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordTableViewCell.swift; sourceTree = "<group>"; };
 		9FDD6BAB7901A99CA0E76A11 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E54E5A49C186E2F1B8588616 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +169,8 @@
 				1AA1C2F11B3173F8002528C3 /* PKHUDTitleProgressView.swift */,
 				1AB043321B2AAF4800AFF5C7 /* WordView.xib */,
 				1A3EFAC81B27FBB8008DC38E /* Main.storyboard */,
+				1AEB14181B3404E80003559E /* CenterImagedTableViewCell.swift */,
+				1AEB141A1B3406B30003559E /* AddWordTableViewCell.swift */,
 				1A079F841B2C372E00E6763A /* WordHistoryCellTableViewCell.swift */,
 				1A3EFAE81B27FD10008DC38E /* SlidableView.swift */,
 				1A3EFAFB1B298C91008DC38E /* ToolBarView.swift */,
@@ -372,6 +378,8 @@
 				1A079F831B2C324800E6763A /* WordHistoryTableViewController.swift in Sources */,
 				1A3EFAC51B27FBB8008DC38E /* AppDelegate.swift in Sources */,
 				1A079F851B2C372E00E6763A /* WordHistoryCellTableViewCell.swift in Sources */,
+				1AEB141B1B3406B30003559E /* AddWordTableViewCell.swift in Sources */,
+				1AEB14191B3404E80003559E /* CenterImagedTableViewCell.swift in Sources */,
 				1A3EFAFA1B298669008DC38E /* DictSelectionViewController.swift in Sources */,
 				1A3EFAE51B27FC1B008DC38E /* WordView.swift in Sources */,
 				1AA1C2F21B3173F8002528C3 /* PKHUDTitleProgressView.swift in Sources */,

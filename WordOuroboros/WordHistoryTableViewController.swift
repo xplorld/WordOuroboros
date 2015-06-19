@@ -12,10 +12,15 @@ protocol WordHistoryTableViewControllerDelegate: class {
     //TODO: set for append new
     var wordHistory:[WordType] {get}
     func didSelectWord(word:WordType)
+    func addWord(# fromWord:WordType?) -> Bool
 }
 
 class WordHistoryTableViewController: UIViewController {
-
+    
+    let SECTIONS_COUNT = 2
+    let WORD_HISTORY_SECTION_INDEX = 0
+    let NEW_WORD_SECTION_INDEX = 1
+    
     @IBOutlet var tableView:UITableView!
     weak var delegate:WordHistoryTableViewControllerDelegate!
     override func viewDidLoad() {
@@ -36,20 +41,11 @@ class WordHistoryTableViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     @IBAction func actionButtonTapped(sender: AnyObject) {
         showDevelopingAlert("分享")
     }
-
+    
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -57,27 +53,56 @@ class WordHistoryTableViewController: UIViewController {
 
 extension WordHistoryTableViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let word = delegate.wordHistory[indexPath.row]
-        delegate.didSelectWord(word)
-        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        switch indexPath.section {
+            
+        case WORD_HISTORY_SECTION_INDEX:
+            let word = delegate.wordHistory[indexPath.row]
+            delegate.didSelectWord(word)
+            presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            
+        case NEW_WORD_SECTION_INDEX:
+            if delegate.addWord(fromWord: delegate.wordHistory.last) {
+                tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: delegate.wordHistory.count - 1, inSection: WORD_HISTORY_SECTION_INDEX)], withRowAnimation: UITableViewRowAnimation.Top)
+                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: NEW_WORD_SECTION_INDEX), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            } else {
+//                tableView.reloadData()
+                tableView.cellForRowAtIndexPath(indexPath).se
+            }
+            
+        default: break
+        }
+        
     }
 }
 
 extension WordHistoryTableViewController : UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return SECTIONS_COUNT
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //TODO: ...
-        return delegate.wordHistory.count
+        switch section {
+        case WORD_HISTORY_SECTION_INDEX: return delegate.wordHistory.count
+        case NEW_WORD_SECTION_INDEX: return 1
+        default: return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("WordCell", forIndexPath: indexPath) as! WordHistoryCellTableViewCell
-        var word = delegate.wordHistory[indexPath.row]
-        cell.wordLabel.text = word.string
-        cell.backgroundColor = word.color
-        return cell
+        switch indexPath.section {
+        case WORD_HISTORY_SECTION_INDEX:
+            let cell = tableView.dequeueReusableCellWithIdentifier("WordCell", forIndexPath: indexPath) as! WordHistoryCellTableViewCell
+            var word = delegate.wordHistory[indexPath.row]
+            cell.wordLabel.text = word.string
+            cell.backgroundColor = word.color
+            return cell
+        case NEW_WORD_SECTION_INDEX:
+            let cell = tableView.dequeueReusableCellWithIdentifier("AddWordCell") as! AddWordTableViewCell
+            cell.backgroundColor = WOColor.getColor()
+            return cell
+        default:
+            fatalError("not gonna happen: wordHistoryTVC not consistent")
+        }
     }
 }

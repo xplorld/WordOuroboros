@@ -109,6 +109,27 @@
                                             <outlet property="wordLabel" destination="WUU-gm-MdC" id="Fz6-Oh-F9J"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddWordCell" id="X24-Pn-OvK" customClass="AddWordTableViewCell" customModule="WordOuroboros" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X24-Pn-OvK" id="mVf-L1-BzH">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1GG-KE-naW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1GG-KE-naW" firstAttribute="leading" secondItem="mVf-L1-BzH" secondAttribute="leading" placeholder="YES" id="1iR-op-o6T"/>
+                                                <constraint firstAttribute="centerY" secondItem="1GG-KE-naW" secondAttribute="centerY" id="CA8-TT-saE"/>
+                                                <constraint firstAttribute="centerX" secondItem="1GG-KE-naW" secondAttribute="centerX" id="NNf-66-f7W"/>
+                                                <constraint firstItem="1GG-KE-naW" firstAttribute="top" secondItem="mVf-L1-BzH" secondAttribute="top" placeholder="YES" id="SOD-co-TDH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="centerImageView" destination="1GG-KE-naW" id="5m8-s7-da5"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>

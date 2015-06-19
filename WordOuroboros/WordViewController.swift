@@ -194,7 +194,16 @@ extension WordViewController : WordHistoryTableViewControllerDelegate {
         view.word = word
         slidableView.setCurrentView(view)
     }
-    
+    func addWord(fromWord word: WordType?) -> Bool {
+        if let prev = word,
+         let next = corpusData.wordNextToWord(prev) {
+            didSelectWord(next)
+            return true
+        } else {
+//            refreshWithRandomWord()
+            return false
+        }
+    }
 }
 
 
