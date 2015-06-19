@@ -20,6 +20,7 @@ class WordHistoryTableViewController: UIViewController {
     weak var delegate:WordHistoryTableViewControllerDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.hidesBarsOnSwipe = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .None

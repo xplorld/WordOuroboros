@@ -23,12 +23,26 @@ class WordViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestureRecognizer)
     }
 }
+//MARK - shake handling
+extension WordViewController {
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+        if event.subtype == UIEventSubtype.MotionShake {
+            //here detected shake
+            refreshWithRandomWord()
+        }
+        if super.respondsToSelector("motionEnded:withEvent:") {
+            super.motionEnded(motion, withEvent: event)
+        }
+    }
+}
+
+
 //MARK: - tool bar view related
 extension WordViewController : UIAlertViewDelegate {
     func prepareToolBarView() {
         let buttonInfo = [
             ("books","dictSelectionDidTap"),
-            ("refresh","refreshDidTap"),
+            ("refresh","refreshWithRandomWord"),
             ("history","historyDidTap"),
             ("pencil","inputDidTap")
         ]
@@ -58,7 +72,7 @@ extension WordViewController : UIAlertViewDelegate {
         let nav = UINavigationController(rootViewController: vc)
         presentViewController(nav, animated: true, completion: nil)
     }
-    func refreshDidTap() {
+    func refreshWithRandomWord() {
         let word = corpusData.randomWord()
         dispatch_async(dispatch_get_main_queue()) {
             [unowned self] in
@@ -93,6 +107,7 @@ extension WordViewController : UIAlertViewDelegate {
     }
 }
 
+//MARK: - SlidableViewDelegate
 extension WordViewController : SlidableViewDelegate {
     func prepareSlidableView() {
         slidableView.slidableViewDelegate = self
@@ -102,7 +117,7 @@ extension WordViewController : SlidableViewDelegate {
             return view
         }
         self.view.addSubview(slidableView)
-        refreshDidTap()
+        refreshWithRandomWord()
         
     }
     
@@ -129,14 +144,16 @@ extension WordViewController : SlidableViewDelegate {
     }
 }
 
+//MARK: - DictSelectionViewControllerDelegate
 extension WordViewController : DictSelectionViewControllerDelegate {
     func didSelectCorpus(corpus: WordCorpus) {
         self.corpusData = corpus.data
-        refreshDidTap()
+        refreshWithRandomWord()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
+//MARK: - WordHistoryTableViewControllerDelegate
 extension WordViewController : WordHistoryTableViewControllerDelegate {
     var wordHistory: [WordType] {
         return corpusData.wordHistory
