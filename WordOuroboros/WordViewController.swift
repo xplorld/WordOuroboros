@@ -23,7 +23,19 @@ class WordViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestureRecognizer)
     }
 }
-//MARK - shake handling
+//MARK: - status bar handling
+extension WordViewController {
+    override func prefersStatusBarHidden() -> Bool {
+        return (toolBarView?.alpha == 0) ?? false
+    }
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
+    }
+}
+//MARK: - shake handling
 extension WordViewController {
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
         if event.subtype == UIEventSubtype.MotionShake {
@@ -57,14 +69,27 @@ extension WordViewController : UIAlertViewDelegate {
         
         toolBarView.hidden = true
         toolBarView.alpha = 0
+        setNeedsStatusBarAppearanceUpdate()
         
         self.view.bringSubviewToFront(toolBarView)
         
     }
     func toolBarTapHandler() {
         let view = toolBarView
-        view.hidden = false
-        UIView.animateWithDuration(0.2, animations: {view.alpha = view.alpha == 0 ? 1 : 0 }, completion: {_ in if view.alpha == 0 {view.hidden = true} })
+        if view.hidden {
+            view.hidden = false
+            UIView.animateWithDuration(0.2, animations:
+                {
+                    view.alpha = 1
+                self.setNeedsStatusBarAppearanceUpdate()
+            })
+        } else {
+            UIView.animateWithDuration(0.2, animations: {
+                view.alpha = 0
+                self.setNeedsStatusBarAppearanceUpdate()
+                }) //completion:
+                {_ in view.hidden = true}
+        }
     }
     func dictSelectionDidTap() {
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("dictSelectionController") as! DictSelectionViewController
@@ -142,6 +167,12 @@ extension WordViewController : SlidableViewDelegate {
             return nil
         }
     }
+    func slidableViewWillScroll(slidableView: SlidableView) {
+        if !toolBarView.hidden {
+            //dismiss tool bar
+            toolBarTapHandler()
+        }
+    }
 }
 
 //MARK: - DictSelectionViewControllerDelegate
@@ -163,12 +194,7 @@ extension WordViewController : WordHistoryTableViewControllerDelegate {
         view.word = word
         slidableView.setCurrentView(view)
     }
-    func slidableViewDidScroll(slidableView: SlidableView) {
-        if !toolBarView.hidden {
-            //dismiss tool bar
-            toolBarTapHandler()
-        }
-    }
+    
 }
 
 

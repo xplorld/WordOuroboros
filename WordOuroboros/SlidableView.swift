@@ -10,7 +10,8 @@ import UIKit
 
 protocol SlidableViewDelegate : class {
     func viewOfDirection(direction:PanGestureDirection,slidableView:SlidableView,currentView:UIView) -> UIView?
-    func slidableViewDidScroll(slidableView:SlidableView)
+//    func slidableViewDidScroll(slidableView:SlidableView)
+    func slidableViewWillScroll(slidableView:SlidableView)
 }
 class SlidableView: UIScrollView {
     /*
@@ -128,14 +129,13 @@ extension SlidableView : UIScrollViewDelegate {
                 contentOffset.y = contentSize.height - bounds.height
             }
         }
-        slidableViewDelegate?.slidableViewDidScroll(self)
     }
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         let velocity = scrollView.panGestureRecognizer.velocityInView(scrollView)
         let direction:PanGestureDirection = directionFromVelocity(velocity)
         
         nextView = self.slidableViewDelegate?.viewOfDirection(direction, slidableView: self, currentView: self.currentView)
-        
+        self.slidableViewDelegate?.slidableViewWillScroll(self)
         if let theView = nextView {
             let cw = currentView.frame.size.width
             let ch = currentView.frame.size.height
